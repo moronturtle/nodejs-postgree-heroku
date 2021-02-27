@@ -13,5 +13,7 @@ module.exports = {
     user: process.env.USER,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
+    dialect: "postgres",
+    ssl: { rejectUnauthorized: false },
   },
 };

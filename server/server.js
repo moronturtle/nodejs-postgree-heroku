@@ -7,13 +7,7 @@ const port = process.env.PORT || 4000;
 
 const pool = require("./database");
 
-const isProduction = process.env.NODE_ENV === "production";
-const origin = {
-  origin: isProduction ? "https://www.example.com" : "*",
-};
-
-app.use(cors(origin));
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
