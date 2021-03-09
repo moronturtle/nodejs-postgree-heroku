@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3001;
 
 const pool = require("./database");
 
@@ -18,15 +18,17 @@ app.get("/", (request, response) => {
   response.json({ info: "It works!" });
 });
 
-app.get("/test_query", (request, response) => {
-  let q = "SELECT * FROM users ORDER BY user_id ASC";
-  pool.query(q, (error, results) => {
-    if (error) {
-      throw error;
-    }
-    response.status(200).json(results.rows);
-  });
+app.get("/test_query", async (request, response) => {
+  try {
+    const resultTestQuery = await pool.query(
+      "SELECT * FROM users ORDER BY user_id ASC"
+    );
+    response.json(resultTestQuery.rows);
+  } catch (err) {
+    console.error(err.message);
+  }
 });
+
 app.listen(port, () => {
   console.log(`running in port ${port}.`);
 });
